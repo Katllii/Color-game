@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+    <head><link rel="stylesheet" href="normalize.css">
+        
+             <title>Colorgame 2.0</title>
+        
+             <link rel="stylesheet" href="Colorgame2.css" type="text/css">
+        
+    </head> 
+    <body>
+        
+                <header>
+                <h1>Colorgame 2.0</h1>
+                </header>
+        
+        <div>
+
+        <section>
+        
+                <!-- Referer til oppgaven brukeren skal løse -->
+                    <h3>Klikk på boksen nedenfor som matcher denne boksens farge</h3>              
+                    <div id="answer-square"></div>
+                
+                    <p id="answer">
+                    <div id="default-answer"><h3>Du har ikke svart enda</h3></div>
+                    <h3>Klikk på riktig boks nedenfor</h3>
+            
+        
+                <!-- Boks 1 --> 
+                    <div id="first-square" onclick = " newGame(); pickedCorrect(); firstButton(); highlight(this);" ></div>
+        
+                <!-- Boks 2 -->
+                    <div id="second-square" onclick = "pickedWrong(); secondButton();" ></div>
+        
+                <!-- Boks 3 -->
+                    <div id="third-square" onclick = "pickedWrong2(); thirdButton();" ></div>
+            
+        
+                <!-- Tekst for at default svaret skal endre seg -->
+                    <p id="correct"></p>
+                    <p id="wrong"></p>
+            
+            
+                <!-- Tekst for statistikk telleren -->
+                    <p id="correct-answer"></p>
+                    <p id="wrong-answer"></p>
+            
+        
+            </section>
+        </div>
+        
+        
+        <script>
+            
+                /* HTML OBJEKTER  */
+            
+                   var answerSquare = document.getElementById("answer-square");
+                   var firstSquare = document.getElementById("first-square");
+                   var secondSquare = document.getElementById("second-square");
+                   var thirdSquare = document.getElementById("third-square");
+            
+            
+                   var defaultAnswer = document.getElementById("default-answer");
+                   var correctAnswer = document.getElementById("correct");
+                   var wrongAnswer = document.getElementById("wrong");
+            
+                    newGame();
+                    function newGame(){
+            
+                   var r = Math.floor(Math.random()*255);
+                   var g = Math.floor(Math.random()*255);
+                   var b = Math.floor(Math.random()*255);
+                   var rgb = 'rgb(' + r + ',' + g + ',' + b + ')'; 
+           
+                   var color = getRandomColor(); 
+            
+            
+            
+                /* Fargekoder */
+                    function getRandomColor() {
+                    var characters = "0123456789ABCDEF";
+                    var color = '#';
+
+                    for (var i = 0; i < 6; i++) {
+                    color += characters[getRandomNumber(0, 15)];
+                    }
+  
+                    return color;
+                    }   
+            
+
+                    function getRandomNumber(low, high) {
+                    var r = Math.floor(Math.random() * (high - low + 1)) + low;
+                    return r;
+            
+                    }
+            
+                /* Funksjonen som får boksene til å vises */ 
+                    setDefaultStyleAnswerSquare();
+                    setDefaultStyleFirstSquare();
+                    setDefaultStyleSecondSquare();
+                    setDefaultStyleThirdSquare();
+
+
+            
+                /* Boksene i kode */
+                    function setDefaultStyleAnswerSquare(){
+                    answerSquare.style.width = "100px";
+                    answerSquare.style.height = "100px";
+                    var color = getRandomColor();
+                    answerSquare.style.backgroundColor = 'rgb(' + r + ',' + g + ',' + b + ')'
+                    }
+            
+            
+                    function setDefaultStyleFirstSquare(){
+                    firstSquare.style.width = "100px";
+                    firstSquare.style.height = "100px";
+                    var color = getRandomColor();
+                    firstSquare.style.backgroundColor = 'rgb(' + r + ',' + g + ',' + b + ')';
+                    firstSquare.style.display = "inline-block";    
+                    }
+            
+            
+                    function setDefaultStyleSecondSquare(){
+                    secondSquare.style.width = "100px";
+                    secondSquare.style.height = "100px";
+                    var color = getRandomColor();
+                    secondSquare.style.backgroundColor = color;
+                    secondSquare.style.display = "inline-block";
+                    }
+            
+            
+                    function setDefaultStyleThirdSquare(){
+                    thirdSquare.style.width = "100px";
+                    thirdSquare.style.height = "100px";
+                    var color = getRandomColor();
+                    thirdSquare.style.backgroundColor = color;
+                    thirdSquare.style.display = "inline-block"; 
+                    }      
+                }
+            
+            
+            
+                /* Kode for å få border rundt boksen når du har klikket riktig */
+                    function highlight(firstSquare) {
+                    firstSquare.style.border = "4px dashed black";
+                    }
+            
+           
+           
+         
+                /* Forteller om du har trykket riktig eller ikke */
+                    function firstButton(){
+                    var firstSquare = document.getElementById("first-square");
+                    if (firstSquare.innerHTML === "correct"){
+                    } 
+                    else {
+                    defaultAnswer.innerHTML = "Riktig, bra jobba!";
+                    }
+                }
+            
+            
+            
+                    function secondButton(){
+                    var secondSquare = document.getElementById("second-square");
+                    if (secondSquare.innerHTML === "wrong"){
+                    } 
+                    else {
+                    defaultAnswer.innerHTML = "Feil, prøv igjen!";
+                    }
+                }
+            
+            
+            
+                    function thirdButton(){
+                    var thirdSquare = document.getElementById("third-square");
+                    if (thirdSquare.innerHTML === "wrong"){
+                    } 
+                    else {
+                    defaultAnswer.innerHTML = "Feil, prøv igjen!";
+                    }
+                }
+            
+            
+                /* Teller antall riktige og antall feil*/
+            
+                    var correctAnswer = document.getElementById("correct-answer");
+                    var wrongAnswer = document.getElementById("wrong-answer");
+            
+                    var correctAnswers = 1;
+                    var wrongAnswers = 1;
+            
+                    correctAnswer.innerHTML = "Times Correct : 0 ";
+                    correctAnswer.style.fontSize = "20px";
+                    wrongAnswer.innerHTML= "Times Wrong : 0 " ;
+                    wrongAnswer.style.fontSize = "20px";
+            
+            
+            
+                /* Teller antall riktige */
+                    function pickedCorrect(){
+    
+                    if(firstSquare.style.backgroundColor === answerSquare.style.backgroundColor){
+                    correctAnswer.innerHTML = "Times Correct: " + correctAnswers++;
+                    }
+                    else{
+                    wrongAnswer.innerHTML = "Times Wrong: " + wrongAnswers++;
+                    }
+                }
+    
+    
+    
+                 /* Teller antall feil */
+                    function pickedWrong(){
+    
+                    if(secondSquare.style.backgroundColor === answerSquare.style.backgroundColor){
+                    correctAnswer.innerHTML = "Times Correct: " + correctAnswers++;
+                    }
+                    else{
+                    wrongAnswer.innerHTML = "Times Wrong: " + wrongAnswers++;
+                    }
+                }
+            
+        
+                  /* Teller antall feil */
+                    function pickedWrong2(){
+    
+                    if(thirdSquare.style.backgroundColor === answerSquare.style.backgroundColor){
+                    correctAnswer.innerHTML = "Times Correct: " + correctAnswers++;
+                    }
+                    else{
+                    wrongAnswer.innerHTML = "Times Wrong: " + wrongAnswers++;
+                    }
+                }
+            
+        
+        </script>
+    </body>
+</html>

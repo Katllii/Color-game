@@ -1,0 +1,152 @@
+<html>
+    <head><link rel="stylesheet" href="normalize.css">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        
+        <div>
+        <header>
+        <h1>Fargespill v.1.</h1></header>
+        
+        <section>
+        
+          <!-- Boksen som referer til første farge -->
+            <h3>Klikk på boksen nedenfor som matcher denne boksens farge</h3>                
+                <div id="answer-square"></div>
+                
+                <p id="answer">
+                <div id="default-answer"><h3>Du har ikke svart enda</h3></div>
+                <h3>Klikk på riktig boks nedenfor</h3>
+        
+                <!-- Første boks --> 
+                    <div id="first-square" onclick="firstButton();"></div>
+        
+                <!-- Andre boks -->
+                    <div id="second-square" onclick="secondButton();"></div>
+        
+                <!-- Tredje boks -->
+                    <div id="third-square" onclick="thirdButton();"></div>
+        
+                <!-- Tekst for at default svaret skal endre seg --> 
+                    <p id="correct"></p>
+                    <p id="wrong"></p>
+        
+        
+        </section></div>
+        
+        
+        <script>
+            
+                /* HTML OBJEKTER */
+            
+                    var answerSquare = document.getElementById("answer-square");
+                    var firstSquare = document.getElementById("first-square");
+                    var secondSquare = document.getElementById("second-square");
+                    var thirdSquare = document.getElementById("third-square");
+            
+                    var defaultAnswer = document.getElementById("default-answer");
+                    var correctAnswer = document.getElementById("correct");
+                    var wrongAnswer = document.getElementById("wrong");
+
+            
+                /* Fargekoder */
+                    var r = Math.floor(Math.random()*255);
+                    var g = Math.floor(Math.random()*255);
+                    var b = Math.floor(Math.random()*255);
+            
+                    var color = getRandomColor();
+                    var color2 = getRandomColor();
+            
+                /* Farge funksjoner */
+            
+                    function getRandomColor() {
+                    var characters = "0123456789ABCDEF";
+                    var color = '#';
+
+                    for (var i = 0; i < 6; i++) {
+                    color += characters[getRandomNumber(0, 15)];
+                    }
+  
+                    return color;
+                    }   
+
+                    function getRandomNumber(low, high) {
+                    var r = Math.floor(Math.random() * (high - low + 1)) + low;
+                    return r;
+                    }
+            
+                /* Boksene i kode */
+                    function setDefaultStyleAnswerSquare(){
+                    answerSquare.style.width = "100px";
+                    answerSquare.style.height = "100px";
+                    var color = getRandomColor();
+                    answerSquare.style.backgroundColor = "rgb("+r+","+g+","+b+")";
+                    }
+            
+                    function setDefaultStyleFirstSquare(){
+                    firstSquare.style.width = "100px";
+                    firstSquare.style.height = "100px";
+                    var color = getRandomColor();
+                    firstSquare.style.backgroundColor = "rgb("+r+","+g+","+b+")";
+                    firstSquare.style.display = "inline-block";
+                    }
+            
+                    function setDefaultStyleSecondSquare(){
+                    secondSquare.style.width = "100px";
+                    secondSquare.style.height = "100px";
+                    var color = getRandomColor();
+                    secondSquare.style.backgroundColor = color;
+                    secondSquare.style.display = "inline-block";
+                    }
+            
+                    function setDefaultStyleThirdSquare(){
+                    thirdSquare.style.width = "100px";
+                    thirdSquare.style.height = "100px";
+                    var color = getRandomColor();
+                    thirdSquare.style.backgroundColor = color;
+                    thirdSquare.style.display = "inline-block";
+                    }
+                
+               
+                /* Funksjonen som får boksene til å vises */
+                    var bokser = (function(){
+                    setDefaultStyleAnswerSquare();
+                    setDefaultStyleFirstSquare();
+                    setDefaultStyleSecondSquare();
+                    setDefaultStyleThirdSquare();
+                    }());
+            
+                /* Funksjonen som endrer default svaret */
+                    function firstButton(){
+                    var firstButton = document.getElementById("first-button");
+                    if (firstSquare.innerHTML === "correct"){
+                    } 
+                    else {
+                    defaultAnswer.innerHTML = "Du har svart riktig";
+                    }
+                }
+            
+                    function secondButton(){
+                    var secondButton = document.getElementById("second-button");
+                    if (secondSquare.innerHTML === "wrong"){
+                    } 
+                    else {
+                    defaultAnswer.innerHTML = "Du har svart feil";
+                    }
+                }
+            
+                    function thirdButton(){
+                    var thirdButton = document.getElementById("third-button");
+                    if (thirdSquare.innerHTML === "wrong"){
+                    } 
+                    else {
+                    defaultAnswer.innerHTML = "Du har svart feil";
+                    }
+                }
+            
+        
+        
+        
+        </script>
+    </body>
+</html>
